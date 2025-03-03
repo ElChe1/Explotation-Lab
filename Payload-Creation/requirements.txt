@@ -1,4 +1,0 @@
-metasploit-framework
-msfvenom
-nmap
-python
