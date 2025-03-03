@@ -8,8 +8,8 @@ En esta documentación se detalla técnicas de creación y uso de payloads malic
 ## 📌 Contenidos
 - [Descripción](#-descripción)
 - [Advertencia](#-advertencia)
-- [Requisitos](#requisitos)
-- [Uso](#uso)
+- [Requisitos](#-requisitos)
+- [Uso](#-uso)
   - [Payload](#creación-de-payload-con-msfvenom)
   - [Payload con Encoder](#payload-con-encoder)
   - [Payload para Linux](#payload-para-linux)
