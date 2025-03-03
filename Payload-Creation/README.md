@@ -2,7 +2,7 @@
 
 
 ## 📚 Descripción
-En esta documentación se detalla técnicas de creación y uso de payloads maliciosos para realizar pruebas de penetración y explotación en diferentes sistemas operativos (Windows, Linux y Android). A través de estas prácticas, se busca entender cómo funcionan los troyanos, los payloads codificados, y cómo se pueden utilizar herramientas como **MSFVenom** y **Metasploit** para establecer conexiones reversas y tomar control de sistemas vulnerables.
+En esta documentación se detalla técnicas de creación y uso de payloads maliciosos para realizar pruebas de penetración y explotación en diferentes sistemas operativos (Windows y Linux). A través de estas prácticas, se busca entender cómo funcionan los troyanos, los payloads codificados, y cómo se pueden utilizar herramientas como **MSFVenom** y **Metasploit** para establecer conexiones reversas y tomar control de sistemas vulnerables.
 
 
 ## 📌 Contenidos
@@ -14,7 +14,6 @@ En esta documentación se detalla técnicas de creación y uso de payloads malic
   - [Payload con Encoder](#payload-con-encoder)
   - [Payload para Linux](#payload-para-linux)
   - [Payload en un PDF](#payload-en-un-pdf)
-  - [Payload para Android](#payload-para-android)
 
 
 ## ⛔ Advertencia
@@ -33,7 +32,7 @@ Este repositorio y su contenido han sido creados **exclusivamente con fines educ
 
 ## 🔨 Requisitos
 Antes de comenzar, asegúrate de tener lo siguiente:
-- **Máquina objetivo:**: Windows 10, Ubuntu Desktop 24.04, Android
+- **Máquina objetivo:**: Windows 10, Ubuntu Desktop 24.04
 
 - **Máquina atacante:** Kali Linux
 - **Herramientas necesarias:** Metasploit, MSFVenom, Nmap, Python
