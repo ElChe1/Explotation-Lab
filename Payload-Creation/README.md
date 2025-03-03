@@ -7,7 +7,7 @@ En esta documentación se detalla técnicas de creación y uso de payloads malic
 
 ## 📌 Contenidos
 - [Descripción](#-descripción)
-- [Advertencia](# ⛔ Advertencia)
+- [Advertencia](#-advertencia)
 - [Requisitos](#requisitos)
 - [Uso](#uso)
   - [Payload](#creación-de-payload-con-msfvenom)
