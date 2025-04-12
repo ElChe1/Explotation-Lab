@@ -1,5 +1,9 @@
 # Informe Explotación - Code
 
+Este informe documenta el proceso de explotación de la máquina Code, parte de la plataforma Hack The Box (HTB). La máquina presenta diversas vulnerabilidades críticas que permitieron comprometer el sistema desde la ejecución remota de código (RCE) hasta la escalada de privilegios a nivel root. A través de un análisis detallado de los servicios expuestos, las configuraciones inseguras y las fallas de validación, se pudieron identificar múltiples vectores de ataque que fueron explotados para obtener acceso completo al sistema.
+
+El objetivo de este informe es proporcionar un resumen detallado de cada paso realizado durante la explotación, desde la recopilación de información hasta la obtención de las flags de usuario y root.
+
 ## Índice
 
 1. [Informe de Explotación - Code](#informe-de-explotación---code)
@@ -18,10 +22,10 @@
 
 
 ## Información General
-- Nombre de la máquina: Code
-- Nivel de dificultad: Fácil
-- Dirección IP: 10.10.11.62
-- Sistema Operativo: Linux
+- **Nombre de la máquina:** Code
+- **Nivel de dificultad:** Fácil
+- **Dirección IP:** 10.10.11.62
+- **Sistema Operativo:** Linux
 
 ## Reconocimiento
 ### Escaneo de Puertos
