@@ -40,12 +40,12 @@ Resultado:
 
 <br>
 
-- -sC: Activa los scripts para detectar vulnerabilidades comunes.
-- -sV: Detecta las versiones de los servicios.
+- **-sC:** Activa los scripts para detectar vulnerabilidades comunes.
+- **-sV:** Detecta las versiones de los servicios.
 
 ### Enumeración de Servicios
-- SSH (Puerto 22): Servicio activo, pero sin credenciales conocidas.
-- HTTP (Puerto 5000): Un servidor web con un editor de Python que permite ejecutar código, y donde también es posible registrarse y autenticarse. Esta configuración podría ser vulnerable a Remote Code Execution (RCE) si no se valida adecuadamente la entrada del usuario.
+- **SSH (Puerto 22):** Servicio activo, pero sin credenciales conocidas.
+- **HTTP (Puerto 5000):** Un servidor web con un editor de Python que permite ejecutar código, y donde también es posible registrarse y autenticarse. Esta configuración podría ser vulnerable a Remote Code Execution (RCE) si no se valida adecuadamente la entrada del usuario.
 
 
 ## Análisis de Vulnerabilidades
@@ -60,9 +60,9 @@ Funciones potencialmente explotables: os.system(), subprocess, lectura/escritura
 Los formularios de inicio de sesión y registro podrían ser vulnerables a inyecciones SQL si no se filtran correctamente las entradas. Se realizaron pruebas básicas con ' OR '1'='1 y valores especiales para observar el comportamiento del servidor.
 
 ## Explotación Inicial
-Se llevaron a cabo diversas pruebas para verificar si el código se ejecutaba directamente en el servidor. Inicialmente, cualquier intento de importar módulos del sistema como os, subprocess, o incluso funciones como __import__() era rechazado por la plataforma, devolviendo errores de seguridad.
+Se llevaron a cabo diversas pruebas para verificar si el código se ejecutaba directamente en el servidor. Inicialmente, cualquier intento de importar módulos del sistema como **os**, **subprocess**, o incluso funciones como **__import__()** era rechazado por la plataforma, devolviendo errores de seguridad.
 
-Aunque los intentos iniciales de importar módulos fueron bloqueados, se identificó que el sistema permitía la ejecución de código mediante la función print().
+Aunque los intentos iniciales de importar módulos fueron bloqueados, se identificó que el sistema permitía la ejecución de código mediante la función **print()**.
 
 Se realizaron pruebas para acceder a objetos internos, como:
 
@@ -71,7 +71,9 @@ print(open('/etc/passwd').read())
 print(os.environ['PATH'])
 ```
 
-Finalmente, se construyó el siguiente payload:
+Podemos suponer que la aplicación web utiliza una base de datos para almacenar los usuarios registrados, lo que abrió la posibilidad de acceder a dicha base de datos mediante consultas SQL.
+
+Para obtener las credenciales de los usuarios, se construyó el siguiente payload:
 ``` python
 print([(user.id, user.username, user.password) for user in User.query.all()])
 ```
@@ -207,7 +209,7 @@ Tras modificar el archivo JSON, se ejecutó nuevamente el script con el mismo co
 
 <br>
 
-En este caso, el script realizó con éxito una copia de seguridad del archivo root.txt. Se extrajo el archivo de la copia de seguridad y se obtuvo la flag de root.
+En este caso, el script realizó con éxito una copia de seguridad del archivo **root.txt**. Se extrajo el archivo de la copia de seguridad y se obtuvo la flag de root.
 <p align="center">
   <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/HTB/Easy/Code/media/img/flag-root.png" alt="flag-root" style="border-radius: 10px;">
 </p>
