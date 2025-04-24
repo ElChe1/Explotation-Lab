@@ -188,7 +188,7 @@ tar -xjf code_home_app-production_user.t_2025_March.tar.bz2
 <br>
 
 Al navegar al directorio **/home/app-production**, se obtuvo la bandera del usuario.
-- **Flag user:** 5c89db216f724a2a9a3a329ecc0f3d21
+- **Flag user:** 5c**********21
 <p align="center">
   <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/HTB/Easy/Code/media/img/flag-user.png" alt="flag-user" style="border-radius: 10px;">
 </p>
