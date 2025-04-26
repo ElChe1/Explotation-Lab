@@ -245,3 +245,9 @@ Durante la explotación de la máquina Titanic, hemos llevado a cabo un proceso 
 - **Compromiso total:** Finalmente, accedimos a una shell como usuario root, consiguiendo la flag de root y demostrando la explotación completa del sistema.
 
 Esta máquina ha puesto a prueba conocimientos de explotación web, análisis de sistemas Linux, tratamiento de hashes y técnicas de escalada mediante vulnerabilidades en software instalado.
+
+<p align="center">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Titanic/media/img/htb.png" alt="htb" style="border-radius: 10px;">
+</p>
+
+<br>
