@@ -27,7 +27,7 @@ nmap -sC -sV 10.10.11.55
 
 Resultados:
 <p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HTB/Easy/Titanic/media/img/nmap.png" alt="nmap" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Titanic/media/img/nmap.png" alt="nmap" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -43,10 +43,10 @@ Durante el análisis del tráfico HTTP, se identificó que el servicio web permi
 Al manipular el parámetro **ticket**, fue posible realizar un path traversal que permitió acceder al archivo ``/etc/passwd`` del sistema, lo que reveló la existencia de un usuario con el ID 1000, llamado **developer**. Esta vulnerabilidad de LFI facilitó el acceso a archivos sensibles en el servidor y permitió recolectar más información sobre el sistema.
 
 ### 2. Exposición de Archivos Sensibles
-Al acceder al archivo ``/etc/hosts``, se encontraron referencias a otro dominio: **dev.titanic.htb**. Esto sugería que el sistema podría estar configurado para interactuar con otro servicio o dominio. Este archivo también podría ofrecer pistas adicionales sobre cómo interactuar con otros servicios o redes dentro de la máquina.
+Al acceder al archivo ``/etc/hosts``, se encontraron referencias a otro dominio: **dev.titanic.HackTheBox**. Esto sugería que el sistema podría estar configurado para interactuar con otro servicio o dominio. Este archivo también podría ofrecer pistas adicionales sobre cómo interactuar con otros servicios o redes dentro de la máquina.
 
 ### 3. Explotación de Gitea
-Se descubrió que en el dominio dev.titanic.htb había un servicio de Gitea en ejecución. Este servicio permite gestionar repositorios Git, y tras explorar sus opciones, se identificó que el archivo de configuración **app.ini**, ubicado en ``/home/developer/gitea/data/gitea/conf/app.ini``, contenía información sensible sobre la base de datos, incluyendo la ubicación de la base de datos SQLite.
+Se descubrió que en el dominio dev.titanic.HackTheBox había un servicio de Gitea en ejecución. Este servicio permite gestionar repositorios Git, y tras explorar sus opciones, se identificó que el archivo de configuración **app.ini**, ubicado en ``/home/developer/gitea/data/gitea/conf/app.ini``, contenía información sensible sobre la base de datos, incluyendo la ubicación de la base de datos SQLite.
 
 Se encontró que la base de datos **gitea.db** contenía una tabla de usuarios con las contraseñas almacenadas de forma hash. La contraseña del usuario developer estaba protegida con el algoritmo **PBKDF2**, y el hash pudo ser crackeado utilizando **Hashcat**.
 
@@ -58,32 +58,32 @@ Se identificó que **ImageMagick** cargaba bibliotecas compartidas sin comprobar
 ## Explotación Inicial
 Durante la interacción con la funcionalidad de descarga de formularios, interceptamos la petición HTTP con Burp Suite y observamos que el endpoint ``/download?ticket=<valor>`` era susceptible a manipulación. Al modificar el parámetro ticket, comprobamos que la aplicación era vulnerable a LFI.
 <p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HTB/Easy/Titanic/media/img/burpsuite.png" alt="burpsuite" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Titanic/media/img/burpsuite.png" alt="burpsuite" style="border-radius: 10px;">
 </p>
 
 <br>
 
 A través de está vulnerabilidad, fue posible acceder al archivo ``/etc/passwd``, revelando usuarios del sistema. Entre ellos, detectamos al usuario developer con UID 1000, lo que indicaba que probablemente se trataba del usuario principal del sistema.
 ```text
-titanic.htb/download?ticket=../../../../etc/passwd
+titanic.HackTheBox/download?ticket=../../../../etc/passwd
 ```
 <p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HTB/Easy/Titanic/media/img/etc_passwd.png" alt="etc_passwd" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Titanic/media/img/etc_passwd.png" alt="etc_passwd" style="border-radius: 10px;">
 </p>
 
 <br>
 
 Posteriormente, accedimos al archivo ``/etc/hosts``para identificar dominios adicionales configurados localmente:
 ```text
-titanic.htb/download?ticket=../../../../etc/hosts
+titanic.HackTheBox/download?ticket=../../../../etc/hosts
 ```
 <p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HTB/Easy/Titanic/media/img/etc_hosts.png" alt="etc_hosts" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Titanic/media/img/etc_hosts.png" alt="etc_hosts" style="border-radius: 10px;">
 </p>
 
 <br>
 
-La lectura del archivo reveló un nuevo dominio interno: **dev.titanic.htb**, el cual añadimos manualmente al archivo ``/etc/hosts`` de nuestra máquina atacante.
+La lectura del archivo reveló un nuevo dominio interno: **dev.titanic.HackTheBox**, el cual añadimos manualmente al archivo ``/etc/hosts`` de nuestra máquina atacante.
 
 Descubrimos que se trataba de una instancia de **Gitea**, una plataforma de control de versiones similar a GitHub. 
 
@@ -92,7 +92,7 @@ Descubrimos que se trataba de una instancia de **Gitea**, una plataforma de cont
 
 Desde el apartado de repositorios públicos ("Explore"), analizamos dos proyectos accesibles: **docker-config** y **flash-app**. En el repositorio docker-config hallamos un archivo **docker-compose.yml** que revelaba cómo estaba desplegada la instancia de Gitea:
 <p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HTB/Easy/Titanic/media/img/docker_compose.png" alt="docker_compose" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Titanic/media/img/docker_compose.png" alt="docker_compose" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -101,9 +101,9 @@ Esto implica que toda la información de Gitea, incluyendo su configuración **a
 
 Aprovechando la vulnerabilidad LFI, se descargó **app.ini** y **gitea.db**
 ```
-titanic.htb/download?ticket=../../../home/developer/gitea/data/gitea/conf/app.ini
+titanic.HackTheBox/download?ticket=../../../home/developer/gitea/data/gitea/conf/app.ini
 
-titanic.htb/download?ticket=../../../home/developer/gitea/data/gitea/gitea.db
+titanic.HackTheBox/download?ticket=../../../home/developer/gitea/data/gitea/gitea.db
 ```
 
 >[!NOTE]
@@ -116,7 +116,7 @@ sqlite> .tables
 sqlite> SELECT name, passwd, salt FROM user;
 ```
 <p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HTB/Easy/Titanic/media/img/select.png" alt="select" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Titanic/media/img/select.png" alt="select" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -127,7 +127,7 @@ Se utilizó un script en Python para generar un hash en el mismo formato con el 
 > <a href="https://gist.githubusercontent.com/h4rithd/0c5da36a0274904cafb84871cf14e271/raw/f109d178edbe756f15060244d735181278c9b57e/gitea2hashcat.py">Script</a>
 
 <p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HTB/Easy/Titanic/media/img/hash.png" alt="hash" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Titanic/media/img/hash.png" alt="hash" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -137,7 +137,7 @@ Y se ejecutó el ataque con **hashcat**
 hashcat -m 10900 hash.txt /usr/share/wordlists/rockyou.txt
 ```
 <p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HTB/Easy/Titanic/media/img/hashcat.png" alt="hashcat" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Titanic/media/img/hashcat.png" alt="hashcat" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -146,7 +146,7 @@ hashcat -m 10900 hash.txt /usr/share/wordlists/rockyou.txt
 
 Como resultado de la ejecución anterior, obtenemos la contraseña asociada al usuario **developer**
 <p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HTB/Easy/Titanic/media/img/ssh.png" alt="ssh" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Titanic/media/img/ssh.png" alt="ssh" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -160,7 +160,7 @@ ps aux
 lsof | grep /opt/app
 ```
 <p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HTB/Easy/Titanic/media/img/ps_lsof.png" alt="ps_lsof" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Titanic/media/img/ps_lsof.png" alt="ps_lsof" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -172,7 +172,7 @@ El contenido del script identify_images.sh revelaba que:
 - Encontraba todos los archivos .jpg en ese directorio.
 - Procesaba esas imágenes usando el comando identify de ImageMagick y almacenaba la salida en metadata.log.
 <p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HTB/Easy/Titanic/media/img/cat.png" alt="cat" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Titanic/media/img/cat.png" alt="cat" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -189,7 +189,7 @@ void __attribute__((constructor)) init() {
 }
 ```
 <p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HTB/Easy/Titanic/media/img/exploit.png" alt="exploit" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Titanic/media/img/exploit.png" alt="exploit" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -206,7 +206,7 @@ Para aprovechar está vulnerabilidad, creamos una biblioteca compartida malicios
 gcc -x c -shared -fPIC -o ./libxcb.so.1 exploit.c
 ```
 <p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HTB/Easy/Titanic/media/img/gcc.png" alt="gcc" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Titanic/media/img/gcc.png" alt="gcc" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -216,21 +216,21 @@ Después de compilar la biblioteca, copiamos una imagen existente **entertainmen
 cp entertainment.jpg exploit.jpg
 ```
 <p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HTB/Easy/Titanic/media/img/cp_final.png" alt="cp_final" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Titanic/media/img/cp_final.png" alt="cp_final" style="border-radius: 10px;">
 </p>
 
 <br>
 
 De este modo, el script identify_images.sh, al ser ejecutado automáticamente, provocó que ImageMagick cargase nuestra **libxcb.so.1**, ejecutando así el payload y dándonos una shell como root.
 <p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HTB/Easy/Titanic/media/img/nc.png" alt="nc" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Titanic/media/img/nc.png" alt="nc" style="border-radius: 10px;">
 </p>
 
 <br>
 
 Tras escalar privilegios y obtener una shell como root, donde encontramos el archivo **root.txt**. Completando así la explotación de la máquina.
 <p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HTB/Easy/Titanic/media/img/flag_root.png" alt="flag_root" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Titanic/media/img/flag_root.png" alt="flag_root" style="border-radius: 10px;">
 </p>
 
 <br>
