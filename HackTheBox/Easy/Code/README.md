@@ -205,11 +205,6 @@ Tras modificar el archivo JSON, se ejecutó nuevamente el script con el mismo co
 <br>
 
 En este caso, el script realizó con éxito una copia de seguridad del archivo **root.txt**. Se extrajo el archivo de la copia de seguridad y se obtuvo la flag de root.
-<p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Code/media/img/flag-root.png" alt="flag-root" style="border-radius: 10px;">
-</p>
-
-<br>
 
 ## Conclusiones
 La explotación de la máquina **Code** ha expuesto varias vulnerabilidades críticas que han permitido comprometer completamente el sistema.
