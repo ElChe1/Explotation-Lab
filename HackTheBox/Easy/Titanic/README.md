@@ -1,5 +1,5 @@
 # Informe Explotación - Titanic
-Este informe documenta el proceso completo de explotación de la máquina **Titanic** en la plataforma Hack The Box. A través de diversas fases, se identificaron servicios vulnerables, se explotaron fallos de configuración y se obtuvo acceso privilegiado al sistema. El objetivo de este informe es detallar cada uno de los pasos seguidos, desde el reconocimiento hasta la escalada de privilegios, incluyendo herramientas utilizadas, técnicas aplicadas y recomendaciones finales.
+Este informe documenta el proceso completo de explotación de la máquina **Titanic** en la plataforma Hack The Box. A través de diversas fases, se identificaron servicios vulnerables, se explotaron fallos de configuración y se obtuvo acceso privilegiado al sistema. El objetivo de este informe es detallar cada uno de los pasos seguidos, desde el reconocimiento hasta la escalada de privilegios.
 
 ## Índice
 1. [Informe de Explotación - Titanic](#informe-de-explotación---Titanic)
