@@ -1,6 +1,6 @@
 # Informe Explotación - Code
 
-Este informe documenta el proceso de explotación de la máquina Code, parte de la plataforma Hack The Box (HTB). La máquina presenta diversas vulnerabilidades críticas que permitieron comprometer el sistema desde la ejecución remota de código (RCE) hasta la escalada de privilegios a nivel root. A través de un análisis detallado de los servicios expuestos, las configuraciones inseguras y las fallas de validación, se pudieron identificar múltiples vectores de ataque que fueron explotados para obtener acceso completo al sistema.
+Este informe documenta el proceso de explotación de la máquina Code, parte de la plataforma Hack The Box (HackTheBox). La máquina presenta diversas vulnerabilidades críticas que permitieron comprometer el sistema desde la ejecución remota de código (RCE) hasta la escalada de privilegios a nivel root. A través de un análisis detallado de los servicios expuestos, las configuraciones inseguras y las fallas de validación, se pudieron identificar múltiples vectores de ataque que fueron explotados para obtener acceso completo al sistema.
 
 El objetivo de este informe es proporcionar un resumen detallado de cada paso realizado durante la explotación, desde la recopilación de información hasta la obtención de las flags de usuario y root.
 
@@ -35,7 +35,7 @@ nmap -sC -sV 10.10.11.62
 ```
 Resultado:
 <p align="center">
-  <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/HTB/Easy/Code/media/img/nmap.png" alt="nmap" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Code/media/img/nmap.png" alt="nmap" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -85,7 +85,7 @@ Este código realiza una consulta a la base de datos utilizando el objeto User, 
 
 Resultado:
 <p align="center">
-  <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/HTB/Easy/Code/media/img/query.png" alt="query" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Code/media/img/query.png" alt="query" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -101,7 +101,7 @@ A través de la explotación del código Python, se obtuvieron los siguientes ha
 
 Para descifrar los hashes, se utilizó el servicio CrackStation, una herramienta rápida para la recuperación de contraseñas mediante el uso de tablas de búsqueda (rainbow tables).
 <p align="center">
-  <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/HTB/Easy/Code/media/img/hashes.png" alt="hashes" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Code/media/img/hashes.png" alt="hashes" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -118,7 +118,7 @@ ssh martin@10.10.11.62
 
 La contraseña utilizada para la conexión fue: **nafeelswordsmaster**. Este paso permitió acceder al sistema como el usuario martin.
 <p align="center">
-  <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/HTB/Easy/Code/media/img/ssh.png" alt="ssh" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Code/media/img/ssh.png" alt="ssh" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -128,7 +128,7 @@ Una vez dentro del sistema, se continuó con la exploración para identificar po
 ### Escalada de Privilegios
 Tras comprobar los permisos con el comando **sudo -l**, se identificó que el usuario **martin** tenía permiso para ejecutar el script **/usr/bin/backy.sh** con privilegios de administrador, sin necesidad de contraseña.
 <p align="center">
-  <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/HTB/Easy/Code/media/img/sudo-l.png" alt="sudo-l" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Code/media/img/sudo-l.png" alt="sudo-l" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -140,7 +140,7 @@ Se examinó el contenido del script con:
 cat /usr/bin/backy.sh
 ```
 <p align="center">
-  <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/HTB/Easy/Code/media/img/cat-backy.png" alt="cat-backy" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Code/media/img/cat-backy.png" alt="cat-backy" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -152,14 +152,14 @@ Observaciones clave:
 
 Para empezar, se modificó el archivo task.json para intentar realizar una copia de seguridad de algunas de las carpetas encontradas con el usuario martin, pero a las cuales no se tenía acceso.
 <p align="center">
-  <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/HTB/Easy/Code/media/img/no-acces.png" alt="no-acces" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Code/media/img/no-acces.png" alt="no-acces" style="border-radius: 10px;">
 </p>
 
 <br>
 
 Código de **task.json**
 <p align="center">
-  <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/HTB/Easy/Code/media/img/codi-task1.png" alt="codigo-task1" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Code/media/img/codi-task1.png" alt="codigo-task1" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -169,7 +169,7 @@ Una vez modificado el archivo JSON, se ejecutó el script con el siguiente coman
 sudo /usr/bin/backy.sh task.json
 ```
 <p align="center">
-  <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/HTB/Easy/Code/media/img/ejecucion-script.png" alt="ejecucion-script" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Code/media/img/ejecucion-script.png" alt="ejecucion-script" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -182,7 +182,7 @@ tar -xjf code_home_app-production_user.t_2025_March.tar.bz2
 ```
 
 <p align="center">
-  <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/HTB/Easy/Code/media/img/tar.png" alt="tar" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Code/media/img/tar.png" alt="tar" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -190,28 +190,28 @@ tar -xjf code_home_app-production_user.t_2025_March.tar.bz2
 Al navegar al directorio **/home/app-production**, se obtuvo la bandera del usuario.
 - **Flag user:** 5c**********21
 <p align="center">
-  <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/HTB/Easy/Code/media/img/flag-user.png" alt="flag-user" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Code/media/img/flag-user.png" alt="flag-user" style="border-radius: 10px;">
 </p>
 
 <br>
 
 Con el éxito de la primera explotación, se intentó obtener la flag del usuario root. Para ello, se modificó nuevamente el archivo **task.json** para incluir este directorio en las copias de seguridad.
 <p align="center">
-  <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/HTB/Easy/Code/media/img/codi-task2.png" alt="codigo-task2" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Code/media/img/codi-task2.png" alt="codigo-task2" style="border-radius: 10px;">
 </p>
 
 <br>
 
 Tras modificar el archivo JSON, se ejecutó nuevamente el script con el mismo comando.
 <p align="center">
-  <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/HTB/Easy/Code/media/img/ejecucion-script2.png" alt="ejecucion-script2" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Code/media/img/ejecucion-script2.png" alt="ejecucion-script2" style="border-radius: 10px;">
 </p>
 
 <br>
 
 En este caso, el script realizó con éxito una copia de seguridad del archivo **root.txt**. Se extrajo el archivo de la copia de seguridad y se obtuvo la flag de root.
 <p align="center">
-  <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/HTB/Easy/Code/media/img/flag-root.png" alt="flag-root" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Code/media/img/flag-root.png" alt="flag-root" style="border-radius: 10px;">
 </p>
 
 <br>
@@ -228,7 +228,7 @@ La falta de restricciones adecuadas en el script con permisos de administrador *
 Este conjunto de vulnerabilidades pone de manifiesto la importancia de validar de forma estricta cualquier entrada del usuario, así como limitar las operaciones privilegiadas a los archivos estrictamente necesarios, evitando cualquier forma de manipulación de rutas o ejecución de código arbitrario.
 
 <p align="center">
-  <img src="https://github.com/ElChe1/Explotation-Lab/blob/main/HTB/Easy/Code/media/img/result.png" alt="result" style="border-radius: 10px;">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Code/media/img/result.png" alt="result" style="border-radius: 10px;">
 </p>
 
 <br>
