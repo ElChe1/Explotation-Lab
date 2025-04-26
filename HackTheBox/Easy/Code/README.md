@@ -189,11 +189,6 @@ tar -xjf code_home_app-production_user.t_2025_March.tar.bz2
 
 Al navegar al directorio **/home/app-production**, se obtuvo la bandera del usuario.
 - **Flag user:** 5c**********21
-<p align="center">
-  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Code/media/img/flag-user.png" alt="flag-user" style="border-radius: 10px;">
-</p>
-
-<br>
 
 Con el éxito de la primera explotación, se intentó obtener la flag del usuario root. Para ello, se modificó nuevamente el archivo **task.json** para incluir este directorio en las copias de seguridad.
 <p align="center">
