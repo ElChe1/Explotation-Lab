@@ -175,3 +175,9 @@ La máquina **"Dog"** ha sido un desafío interesante que ha implicado diversas 
     - Tras obtener acceso como `root`, se logró acceder a la **root flag**, completando la explotación de la máquina. Esto demuestra cómo una serie de vulnerabilidades relativamente simples, pero bien aprovechadas, pueden resultar en una explotación completa de la máquina.
 
 En resumen, esta máquina es un excelente ejemplo de cómo una serie de fallos de seguridad, aparentemente simples pero encadenados, pueden ser explotados para obtener acceso completo a un sistema. La gestión adecuada de accesos, el control de versiones y la vigilancia de servicios como CMS son cruciales para mitigar este tipo de vulnerabilidades.
+
+<p align="center">
+  <img src="https://github.com/ElChe1/Exploitation-Lab/blob/main/HackTheBox/Easy/Dog/media/img/htb.png" alt="htb" style="border-radius: 10px;">
+</p>
+
+<br>
